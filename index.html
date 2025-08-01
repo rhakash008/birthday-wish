@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday!</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- 🔊 Background Music -->
+    <audio id="bg-music" autoplay loop>
+    <source src="birthday.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+    <!-- 🎵 Music Control Button -->
+    <button onclick="toggleMusic()">🔊 Toggle Music</button>
+
+    <!-- 🎂 Birthday Message -->
+    <div class="container">
+        <h1>🎉 Happy Birthday, Mim! 🎂</h1>
+        <p>Wishing you all the love, laughter, and joy in the world.</p>
+        <button onclick="launchConfetti()">Click for a Surprise!</button>
+    </div>
+
+    <!-- 🎊 Confetti Effect -->
+    <canvas id="confetti"></canvas>
+
+    <!-- 💻 Scripts -->
+    <script src="script.js"></script>
+    <script>
+        const music = document.getElementById('bg-music');
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+    </script>
+</body>
+
+</html>
