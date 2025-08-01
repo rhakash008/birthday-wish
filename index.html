@@ -9,15 +9,14 @@
 </head>
 
 <body>
-    <!-- 🔊 Background Music -->
-    <audio id="bg-music" autoplay loop>
-    <source src="birthday.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+    <!-- Audio (without autoplay) -->
+<audio id="bg-music" loop>
+  <source src="birthday.mp3" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
 
-    <!-- 🎵 Music Control Button -->
-    <button onclick="toggleMusic()">🔊 Toggle Music</button>
-
+<!-- Toggle Music Button -->
+<button id="play-btn">🔊 Play Music</button>
     <!-- 🎂 Birthday Message -->
     <div class="container">
         <h1>🎉 Happy Birthday, Mim! 🎂</h1>
