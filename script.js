@@ -1,3 +1,9 @@
+function startSurprise() {
+  playMusic();       // 🔊 Start the music
+  launchConfetti();  // 🎉 Launch confetti
+}
+
+// Separate confetti logic
 function launchConfetti() {
   const duration = 2 * 1000;
   const animationEnd = Date.now() + duration;
@@ -25,8 +31,15 @@ function launchConfetti() {
   }, 250);
 }
 
-// Confetti library (via CDN)
+// Music play logic
+function playMusic() {
+  const music = document.getElementById('bg-music');
+  if (music.paused) {
+    music.play();
+  }
+}
+
+// Load confetti library
 const script = document.createElement('script');
 script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js';
-script.onload = () => console.log("Confetti ready!");
 document.head.appendChild(script);
