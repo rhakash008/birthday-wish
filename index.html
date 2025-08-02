@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+<head>u
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday!</title>
@@ -55,17 +54,9 @@
     }
 
     @keyframes sway {
-      0% {
-        transform: rotate(-2deg);
-      }
-
-      50% {
-        transform: rotate(2deg);
-      }
-
-      100% {
-        transform: rotate(-2deg);
-      }
+      0% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+      100% { transform: rotate(-2deg); }
     }
 
     #age-display {
@@ -83,6 +74,12 @@
       pointer-events: none;
       z-index: 1;
     }
+
+    #countdown {
+      font-size: 1.2em;
+      color: #ff9800;
+      margin-top: 10px;
+    }
   </style>
 </head>
 
@@ -99,24 +96,19 @@
     <h1>🎉 Happy Birthday, Mim! 🎂</h1>
     <p>Wishing you all the love, laughter, and joy in the world.</p>
     <div id="age-display"></div>
+    <div id="countdown"></div>
     <button onclick="launchConfetti()">Click for a Surprise!</button>
   </div>
 
   <!-- 🍃 Tree + Leaves -->
   <img src="tree.png" alt="Tree" class="tree" />
   <canvas id="leaves"></canvas>
-
-  <!-- 🎊 Confetti -->
   <canvas id="confetti"></canvas>
 
-  <!-- 💻 Scripts -->
-  <script src="script.js"></script>
-
-  <!-- 🎵 Music Toggle -->
+  <!-- 🎵 Music Toggle Script -->
   <script>
     const music = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-btn');
-
     function toggleMusic() {
       if (music.paused) {
         music.play();
@@ -128,15 +120,19 @@
     }
   </script>
 
-  <!-- ⏳ Age Clock -->
+  <!-- ⏳ Age Clock (Corrected) -->
   <script>
     const dob = new Date("2003-08-03T00:00:00");
+
     function updateAge() {
       const now = new Date();
-      let diff = Math.floor((now - dob) / 1000);
+      const thisYearBirthday = new Date(now.getFullYear(), dob.getMonth(), dob.getDate());
 
-      const years = Math.floor(diff / (365.25 * 24 * 3600));
-      diff %= Math.floor(365.25 * 24 * 3600);
+      let years = now.getFullYear() - dob.getFullYear();
+      if (now < thisYearBirthday) years--;
+
+      // Show age display
+      let diff = Math.floor((now - dob) / 1000);
       const days = Math.floor(diff / (24 * 3600));
       diff %= 24 * 3600;
       const hours = Math.floor(diff / 3600);
@@ -145,8 +141,25 @@
       const seconds = diff % 60;
 
       document.getElementById("age-display").innerHTML =
-        `${years} years, ${days} days, ${hours} hrs, ${minutes} min, ${seconds} sec`;
+        `${years} years, ${days % 365} days, ${hours} hrs, ${minutes} min, ${seconds} sec`;
+
+      // Show countdown if birthday is near
+      const nextBirthday = new Date(now.getFullYear(), dob.getMonth(), dob.getDate());
+      if (now > nextBirthday) {
+        nextBirthday.setFullYear(now.getFullYear() + 1);
+      }
+      const timeToBday = nextBirthday - now;
+      const daysLeft = Math.floor(timeToBday / (1000 * 60 * 60 * 24));
+
+      if (daysLeft > 0) {
+        document.getElementById("countdown").textContent = `⏳ ${daysLeft} day(s) left until you turn ${years + 1}!`;
+      } else if (daysLeft === 0) {
+        document.getElementById("countdown").textContent = `🎈 It's your birthday today! You turn ${years + 1}! 🎈`;
+      } else {
+        document.getElementById("countdown").textContent = "";
+      }
     }
+
     setInterval(updateAge, 1000);
     updateAge();
   </script>
@@ -185,6 +198,17 @@
 
     drawLeaves();
   </script>
-</body>
 
+  <!-- 🎊 Confetti Script -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    function launchConfetti() {
+      confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.6 },
+      });
+    }
+  </script>
+</body>
 </html>
